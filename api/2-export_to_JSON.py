@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-"""
+"""Module that gathers data from an API for a given employee ID.
+
+Exports the employee's TODO list data to a JSON file, using the
+JSONPlaceholder REST API.
 """
 import json
 import sys
