@@ -6,7 +6,7 @@ JSONPlaceholder REST API.
 """
 import json
 import sys
-import requests
+import urllib.request
 
 
 if __name__ == "__main__":
@@ -14,15 +14,14 @@ if __name__ == "__main__":
     base_url = "https://jsonplaceholder.typicode.com"
 
     user_url = "{}/users/{}".format(base_url, employee_id)
-    todos_url = "{}/todos".format(base_url)
-    params = {"userId": employee_id}
+    todos_url = "{}/todos?userId={}".format(base_url, employee_id)
 
-    user_response = requests.get(user_url)
-    user_data = user_response.json()
+    with urllib.request.urlopen(user_url) as response:
+        user_data = json.loads(response.read().decode("utf-8"))
     username = user_data.get("username")
 
-    todos_response = requests.get(todos_url, params=params)
-    todos_data = todos_response.json()
+    with urllib.request.urlopen(todos_url) as response:
+        todos_data = json.loads(response.read().decode("utf-8"))
 
     tasks_list = []
     for task in todos_data:
